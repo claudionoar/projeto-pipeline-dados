@@ -1,0 +1,15 @@
+# profiles.yml — diz ao dbt COMO conectar no Snowflake.
+# Usa env_var() para ler as credenciais do ambiente (definidas no .env / docker-compose).
+ifg_modelagem:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      schema: analytics        # schema padrão de saída
+      threads: 4               # roda até 4 models em paralelo

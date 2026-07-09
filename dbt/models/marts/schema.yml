@@ -1,0 +1,15 @@
+# schema.yml — documentação + TESTES do model.
+# O dbt roda esses testes com "dbt test" e falha se algum não passar.
+version: 2
+
+models:
+  - name: vendas_por_cliente
+    description: "Total de compras e valor gasto por cliente"
+    columns:
+      - name: id_cliente
+        description: "Identificador único do cliente"
+        tests:
+          - unique          # não pode haver id_cliente repetido
+          - not_null        # não pode ser nulo
+      - name: total_gasto
+        description: "Soma do valor de todas as compras do cliente"

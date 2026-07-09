@@ -1,0 +1,13 @@
+# sources.yml — declara de onde vêm os dados brutos (carregados do S3 pelo Airflow).
+# Assim os models usam {{ source('raw', 'vendas') }} em vez de escrever o nome fixo.
+version: 2
+
+sources:
+  - name: raw
+    database: ANALYTICS
+    schema: RAW
+    tables:
+      - name: vendas
+        description: "Vendas brutas carregadas do S3"
+      - name: clientes
+        description: "Clientes brutos carregados do S3"

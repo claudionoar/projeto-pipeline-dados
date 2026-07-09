@@ -1,0 +1,15 @@
+# dbt_project.yml — configura o projeto dbt
+name: 'ifg_modelagem'
+version: '1.0.0'
+profile: 'ifg_modelagem'      # precisa bater com o nome no profiles.yml
+
+model-paths: ["models"]
+
+models:
+  ifg_modelagem:
+    staging:
+      +materialized: view      # staging vira VIEW (leve, sempre lê o dado atual)
+      +schema: staging
+    marts:
+      +materialized: table     # marts viram TABLE (materializada, rápida de consultar)
+      +schema: analytics
