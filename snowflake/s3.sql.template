@@ -1,0 +1,27 @@
+-- 4) External Stage apontando para o bucket S3.
+--
+--    Use CREATE OR REPLACE (e não IF NOT EXISTS): com credenciais temporárias
+--    da AWS (chave ASIA), o token expira e você precisa recriar o stage.
+--
+--    AWS_TOKEN é OBRIGATÓRIO para chaves ASIA (AWS Academy / Learner Lab).
+--    Se a sua chave for permanente (AKIA), remova a linha do AWS_TOKEN.
+CREATE OR REPLACE STAGE ANALYTICS.RAW.S3_STAGE
+  URL = 's3://BUCKET_NAME/'
+  CREDENTIALS = (
+    AWS_KEY_ID     = 'AWS_KEY_ID'
+    AWS_SECRET_KEY = 'AWS_SECRET_KEY'
+    AWS_TOKEN      = 'AWS_TOKEN'
+  )
+  FILE_FORMAT = ANALYTICS.RAW.CSV_FORMAT;
+
+
+-- ---------------------------------------------------------------------------
+-- VERIFICAÇÕES — rode estas linhas para confirmar que tudo foi criado:
+--
+--   SHOW SCHEMAS IN DATABASE ANALYTICS;
+--   SHOW TABLES IN SCHEMA ANALYTICS.RAW;
+--   LIST @ANALYTICS.RAW.S3_STAGE;   -- deve listar clientes.csv e vendas.csv
+--
+-- O LIST é o teste decisivo do stage: se listar os arquivos que o Airflow
+-- enviou, o COPY INTO da task 2 vai funcionar.
+-- ---------------------------------------------------------------------------
