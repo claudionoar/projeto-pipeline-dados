@@ -24,7 +24,7 @@ x-airflow-common: &airflow-common
     S3_BUCKET: ${S3_BUCKET}
     DBT_PROFILES_DIR: /opt/airflow/dbt   # onde o dbt acha o profiles.yml
   volumes:
-    - ./dags:/opt/airflow/dags
+    - ./airflow/dags:/opt/airflow/dags
     - ./dbt:/opt/airflow/dbt
     - ./data:/opt/airflow/data
     - airflow-logs:/opt/airflow/logs
